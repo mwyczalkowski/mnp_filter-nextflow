@@ -1,44 +1,6 @@
 Work here developing basic nextflow workflow to run mnp_filter.
 
-From mnp_filter/cwl/mnp_filter.cwl
-
-```
-id: mnp_filter
-baseCommand:
-  - /usr/local/bin/python
-  - /opt/mnp_filter/src/mnp_filter.py
-inputs:
-  - id: input
-    type: File
-    inputBinding:
-      position: 0
-      prefix: '--input'
-    label: VCF file
-  - id: tumor_bam
-    type: File
-    inputBinding:
-      position: 0
-      prefix: '--bam'
-    label: tumor bam
-    secondaryFiles:
-      - .bai
-outputs:
-  - id: filtered_VCF
-    type: File
-    outputBinding:
-      glob: MNP_combined.vcf
-label: MNP_filter
-arguments:
-  - position: 0
-    prefix: '--output'
-    valueFrom: MNP_combined.vcf
-requirements:
-  - class: ResourceRequirement
-    ramMin: 4000
-  - class: DockerRequirement
-    dockerPull: 'dinglab2/mnp_filter:20191211'
-  - class: InlineJavascriptRequirement
-```
+Based on mnp_filter/cwl/mnp_filter.cwl
 
 # Demo data
 
@@ -96,5 +58,10 @@ BAM files exist.  VCF exists
 compressed_results.tar.gz file expanded to,
 RUN_ROOT="/storage1/fs1/dinglab/Active/Projects/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions/tindaisy2.6.2.cwl/722d9b49-6eb5-4ed8-a245-f12a3f89a4ce/analysis"
 
-
+# Initial run
+[bc/ea5215] process > run_mnp_filter [100%] 1 of 1 ✔
+Completed at: 13-May-2024 18:27:41
+Duration    : 28m 15s
+CPU hours   : 0.5
+Succeeded   : 1
 

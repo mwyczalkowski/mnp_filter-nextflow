@@ -1,6 +1,7 @@
 // Based on script here: https://www.nextflow.io/docs/latest/overview.html
 
 params.vcf = "/storage1/fs1/dinglab/Active/Projects/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions/tindaisy2.6.2.cwl/722d9b49-6eb5-4ed8-a245-f12a3f89a4ce/call-snp_indel_proximity_filter/execution/output/ProximityFiltered.vcf"
+params.script = "/storage1/fs1/m.wyczalkowski/Active/ProjectStorage/GDAN/Work/2024.nextflow-dev/mnp_filter-nextflow/mnp_filter-dev/src/mnp_filter.py"
 
 // these two work, but are placeholder trash
 //params.tumor_bam = "/storage1/fs1/dinglab/Active/Primary/GDAN-GDC/GDC_import/data/9bfb1c81-6e6e-42bf-8c35-44449177631d/3bb4acb0-4e6c-428c-917b-5ab66bb152da_wxs_gdc_realn.bam" // testing this just for the path.  It is trash - but it proceeds
@@ -32,16 +33,17 @@ process run_mnp_filter {
   path "input.vcf"
   path "tumor.bam"
   path "tumor.bai"
+  path "mnp_filter.py"
 
   output:
   path "MNP_combined.vcf"
 
   """
-  /usr/local/bin/python /opt/mnp_filter/src/mnp_filter.py --input input.vcf --bam tumor.bam --output MNP_combined.vcf
+  /usr/local/bin/python mnp_filter.py --input input.vcf --bam tumor.bam --output MNP_combined.vcf
   """
 }
 
 workflow {
-  run_mnp_filter(params.vcf, params.tumor_bam, params.tumor_bai)
+  run_mnp_filter(params.vcf, params.tumor_bam, params.tumor_bai, params.script)
 }
 

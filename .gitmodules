@@ -1,0 +1,3 @@
+[submodule "mnp_filter-dev"]
+	path = mnp_filter-dev
+	url = https://github.com/ding-lab/mnp_filter
